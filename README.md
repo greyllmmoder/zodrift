@@ -4,7 +4,9 @@
 [![CI](https://github.com/greyllmmoder/zodrift/actions/workflows/ci.yml/badge.svg)](https://github.com/greyllmmoder/zodrift/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-Catch drift between your TypeScript types and Zod schemas.
+ESLint for TypeScript and Zod drift. Catch contract drift before it reaches runtime.
+
+Built for teams that already have TS types and Zod schemas and want CI to fail when they drift.
 
 ```ts
 import { z } from "zod";
@@ -27,13 +29,49 @@ export const UserSchema = z.object({
 npx zodrift check
 ```
 
-![zodrift terminal output](./assets/hero.svg)
+![zodrift terminal output](https://raw.githubusercontent.com/greyllmmoder/zodrift/main/assets/hero.svg)
+
+Example output:
+
+```text
+✗ User ↔ UserSchema
+  - optional mismatch for email: type=optional, schema=required
+  - type mismatch for age: type=number, schema=string
+  - extra in schema: role
+```
 
 What it catches:
 - missing fields
 - extra fields
 - required vs optional mismatch
 - basic type mismatch
+
+CI quick start:
+
+```yaml
+- run: npx zodrift check --pattern "src/**/*.{ts,tsx}"
+```
+
+Exit codes:
+- `0`: no drift
+- `1`: drift found
+- `2`: parser/runtime error
+
+Useful commands:
+
+```bash
+# Check current project
+npx zodrift check --pattern "src/**/*.{ts,tsx}"
+
+# Machine-readable report for CI artifacts
+npx zodrift check --format json --out reports/zodrift.json
+
+# SARIF for GitHub code scanning
+npx zodrift check --format sarif --out reports/zodrift.sarif
+
+# Safe autofix pass (dry-run first)
+npx zodrift fix --pattern "src/**/*.ts" --dry-run
+```
 
 Roadmap:
 - nested support
