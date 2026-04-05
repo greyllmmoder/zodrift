@@ -45,11 +45,12 @@ What it catches:
 - extra fields
 - required vs optional mismatch
 - basic type mismatch
+- semantic mismatch when your TS type is not assignable to `z.input<typeof Schema>` / `z.output<typeof Schema>` (optional mode)
 
 CI quick start:
 
 ```yaml
-- run: npx zodrift check --pattern "src/**/*.{ts,tsx}"
+- run: npx zodrift check --pattern "src/**/*.{ts,tsx}" --semantics both
 ```
 
 Exit codes:
@@ -62,6 +63,9 @@ Useful commands:
 ```bash
 # Check current project
 npx zodrift check --pattern "src/**/*.{ts,tsx}"
+
+# Add semantic compatibility checks for z.input/z.output
+npx zodrift check --pattern "src/**/*.{ts,tsx}" --semantics both
 
 # Machine-readable report for CI artifacts
 npx zodrift check --format json --out reports/zodrift.json

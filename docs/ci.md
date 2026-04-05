@@ -6,6 +6,12 @@ Basic gate:
 - run: npx zodrift check --pattern "src/**/*.ts"
 ```
 
+Semantic gate (recommended):
+
+```yaml
+- run: npx zodrift check --pattern "src/**/*.ts" --semantics both
+```
+
 JSON artifact:
 
 ```yaml

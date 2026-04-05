@@ -48,6 +48,7 @@ export function runFixCommand(flags: Map<string, string | boolean>): number {
     cwd,
     pattern,
     format: "pretty",
+    semantics: "off",
     changedOnly: false,
   });
 

@@ -1,6 +1,7 @@
 import { comparePair } from "./compare.js";
 import { discoverSourceFiles } from "./file-discovery.js";
 import { pairTypesWithSchemas } from "./pairing.js";
+import { collectSemanticIssues, pairKey } from "./semantic-checker.js";
 import { parseTypeDeclarations } from "./ts-parser.js";
 import { parseSchemaDeclarations } from "./zod-parser.js";
 import type { CheckOptions, CheckResult, DriftPairResult } from "./types.js";
@@ -15,12 +16,20 @@ export function runCheck(options: CheckOptions): CheckResult {
   const typeParsed = parseTypeDeclarations(files);
   const schemaParsed = parseSchemaDeclarations(files);
   const paired = pairTypesWithSchemas(typeParsed.declarations, schemaParsed.declarations);
+  const semantic = collectSemanticIssues({
+    cwd: options.cwd,
+    pairs: paired.pairs,
+    semantics: options.semantics,
+  });
 
   const pairs: DriftPairResult[] = [];
   let totalIssues = 0;
+  let semanticIssueCount = 0;
 
   for (const pair of paired.pairs) {
-    const issues = comparePair(pair);
+    const structuralIssues = comparePair(pair);
+    const semanticIssues = semantic.issuesByPair.get(pairKey(pair)) ?? [];
+    const issues = [...structuralIssues, ...semanticIssues];
 
     const cappedIssues =
       options.maxIssues && options.maxIssues > 0
@@ -28,6 +37,7 @@ export function runCheck(options: CheckOptions): CheckResult {
         : issues;
 
     totalIssues += cappedIssues.length;
+    semanticIssueCount += cappedIssues.filter((issue) => issue.kind === "semantic_mismatch").length;
 
     pairs.push({
       typeName: pair.typeDecl.name,
@@ -44,6 +54,8 @@ export function runCheck(options: CheckOptions): CheckResult {
     checkedPairs: pairs.length,
     unmatchedTypes: paired.unmatchedTypes,
     unmatchedSchemas: paired.unmatchedSchemas,
-    errors: [...typeParsed.errors, ...schemaParsed.errors],
+    semanticsMode: options.semantics,
+    semanticIssueCount,
+    errors: [...typeParsed.errors, ...schemaParsed.errors, ...semantic.errors],
   };
 }

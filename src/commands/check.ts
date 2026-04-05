@@ -1,14 +1,29 @@
 import fs from "node:fs";
 import path from "node:path";
 import { runCheck } from "../core/checker.js";
-import type { OutputFormat } from "../core/types.js";
+import type { OutputFormat, SemanticsMode } from "../core/types.js";
 import { renderOutput } from "../reporters/index.js";
 import { flagBoolean, flagNumber, flagString } from "../utils/args.js";
+
+function parseSemanticsMode(value: string): SemanticsMode | null {
+  if (value === "off" || value === "input" || value === "output" || value === "both") {
+    return value;
+  }
+  return null;
+}
 
 export function runCheckCommand(flags: Map<string, string | boolean>): number {
   const cwd = process.cwd();
   const pattern = flagString(flags, "pattern", "**/*.{ts,tsx}");
   const format = flagString(flags, "format", "pretty") as OutputFormat;
+  const semanticsRaw = flagString(flags, "semantics", "off");
+  const semantics = parseSemanticsMode(semanticsRaw);
+  if (!semantics) {
+    process.stderr.write(
+      `Invalid --semantics value: ${semanticsRaw}. Use one of: off, input, output, both.\n`,
+    );
+    return 2;
+  }
   const maxIssues = flagNumber(flags, "max-issues");
   const changedOnly = flagBoolean(flags, "changed", false);
 
@@ -16,6 +31,7 @@ export function runCheckCommand(flags: Map<string, string | boolean>): number {
     cwd,
     pattern,
     format,
+    semantics,
     maxIssues,
     changedOnly,
   });

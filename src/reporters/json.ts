@@ -6,6 +6,8 @@ export function renderJson(payload: ReporterPayload): string {
       summary: {
         checkedPairs: payload.result.checkedPairs,
         totalIssues: payload.result.totalIssues,
+        semanticsMode: payload.result.semanticsMode,
+        semanticIssueCount: payload.result.semanticIssueCount,
         unmatchedTypes: payload.result.unmatchedTypes,
         unmatchedSchemas: payload.result.unmatchedSchemas,
         errors: payload.result.errors,
