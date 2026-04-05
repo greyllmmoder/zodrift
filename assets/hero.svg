@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="520" viewBox="0 0 1200 520" role="img" aria-labelledby="title desc">
+  <title id="title">zodrift check output</title>
+  <desc id="desc">Terminal output showing drift issues detected by zodrift.</desc>
+  <rect width="1200" height="520" fill="#0f172a" />
+  <rect x="24" y="24" width="1152" height="472" rx="12" fill="#111827" stroke="#334155" stroke-width="2"/>
+  <circle cx="56" cy="50" r="8" fill="#ef4444" />
+  <circle cx="82" cy="50" r="8" fill="#f59e0b" />
+  <circle cx="108" cy="50" r="8" fill="#22c55e" />
+  <text x="140" y="55" fill="#cbd5e1" font-family="Menlo, Consolas, monospace" font-size="18">npm run dev -- check --pattern "examples/**/*.ts"</text>
+  <g fill="#e2e8f0" font-family="Menlo, Consolas, monospace" font-size="24">
+    <text x="56" y="110">✗ User ↔ UserSchema</text>
+    <text x="56" y="156">  - optional mismatch for email: type=optional, schema=required</text>
+    <text x="56" y="202">  - type mismatch for age: type=number, schema=string</text>
+    <text x="56" y="248">  - extra in schema: role</text>
+    <text x="56" y="320">Checked pairs: 1 | Issues: 3</text>
+  </g>
+</svg>

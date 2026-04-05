@@ -1,0 +1,44 @@
+{
+  "name": "zodrift",
+  "version": "0.1.0",
+  "description": "Catch drift between your TypeScript types and Zod schemas.",
+  "type": "module",
+  "license": "MIT",
+  "bin": {
+    "zodrift": "dist/cli.js"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "dev": "tsx src/cli.ts",
+    "build": "rm -rf dist && tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "tsx --test src/**/*.test.ts",
+    "check": "npm run dev -- check",
+    "prepublishOnly": "npm run typecheck && npm run build && npm test"
+  },
+  "keywords": [
+    "zod",
+    "typescript",
+    "schema",
+    "drift",
+    "cli"
+  ],
+  "devDependencies": {
+    "@types/node": "^22.15.0",
+    "tsx": "^4.20.0",
+    "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "zod": "^3.25.76"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

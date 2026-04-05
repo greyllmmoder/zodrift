@@ -1,0 +1,10 @@
+
+> zodrift@0.1.0 dev
+> tsx src/cli.ts check --pattern examples/**/*.ts
+
+✗ User ↔ UserSchema
+  - optional mismatch for email: type=optional, schema=required
+  - type mismatch for age: type=number, schema=string
+  - extra in schema: role
+
+Checked pairs: 1 | Issues: 3
