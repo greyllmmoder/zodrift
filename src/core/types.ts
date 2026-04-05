@@ -107,7 +107,8 @@ export type DriftIssueKind =
   | "missing_in_schema"
   | "extra_in_schema"
   | "optional_mismatch"
-  | "type_mismatch";
+  | "type_mismatch"
+  | "semantic_mismatch";
 
 export interface DriftIssue {
   kind: DriftIssueKind;
@@ -134,6 +135,8 @@ export interface CheckResult {
   checkedPairs: number;
   unmatchedTypes: string[];
   unmatchedSchemas: string[];
+  semanticsMode: SemanticsMode;
+  semanticIssueCount: number;
   errors: string[];
 }
 
@@ -148,11 +151,13 @@ export interface ReporterPayload {
 }
 
 export type OutputFormat = "pretty" | "json" | "sarif";
+export type SemanticsMode = "off" | "input" | "output" | "both";
 
 export interface CheckOptions {
   cwd: string;
   pattern: string;
   format: OutputFormat;
+  semantics: SemanticsMode;
   maxIssues?: number;
   changedOnly: boolean;
 }

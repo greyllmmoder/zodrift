@@ -10,7 +10,7 @@ function printHelp(): void {
   process.stdout.write(`zodrift
 
 Usage:
-  zodrift check [--pattern <glob>] [--format pretty|json|sarif] [--out <file>] [--changed]
+  zodrift check [--pattern <glob>] [--format pretty|json|sarif] [--semantics off|input|output|both] [--out <file>] [--changed]
   zodrift fix [--pattern <glob>] [--target schema] [--dry-run] [--write]
   zodrift codegen [--from ts|zod] [--pattern <glob>] [--out-dir <dir>] [--write]
   zodrift openapi [--pattern <glob>] [--out <file>]
@@ -19,6 +19,7 @@ Usage:
 Examples:
   npx zodrift check
   npx zodrift check --pattern "examples/**/*.ts"
+  npx zodrift check --semantics both
   npx zodrift check --format json --out reports/zodrift.json
   npx zodrift fix --pattern "src/**/*.ts" --dry-run
 `);

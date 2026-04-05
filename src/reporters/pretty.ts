@@ -46,6 +46,11 @@ export function renderPretty(payload: ReporterPayload): string {
   lines.push(
     `Checked pairs: ${payload.result.checkedPairs} | Issues: ${payload.result.totalIssues}`,
   );
+  if (payload.result.semanticsMode !== "off") {
+    lines.push(
+      `Semantic mode: ${payload.result.semanticsMode} | Semantic issues: ${payload.result.semanticIssueCount}`,
+    );
+  }
 
   return lines.join("\n").trim();
 }

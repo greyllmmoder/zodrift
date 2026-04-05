@@ -5,6 +5,7 @@ function levelForIssue(kind: DriftIssue["kind"]): "warning" | "error" {
   switch (kind) {
     case "type_mismatch":
     case "optional_mismatch":
+    case "semantic_mismatch":
       return "error";
     default:
       return "warning";
@@ -21,6 +22,8 @@ function ruleName(kind: DriftIssue["kind"]): string {
       return "optional-mismatch";
     case "type_mismatch":
       return "type-mismatch";
+    case "semantic_mismatch":
+      return "semantic-mismatch";
     default:
       return "drift";
   }
@@ -43,6 +46,10 @@ export function renderSarif(payload: ReporterPayload): string {
     {
       id: "type-mismatch",
       shortDescription: { text: "Type mismatch between TS and Zod" },
+    },
+    {
+      id: "semantic-mismatch",
+      shortDescription: { text: "TypeScript semantic mismatch against z.input/z.output" },
     },
   ];
 
