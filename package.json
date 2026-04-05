@@ -1,7 +1,7 @@
 {
   "name": "zodrift",
-  "version": "0.1.3",
-  "description": "ESLint-style CI drift checker for TypeScript types and Zod schemas.",
+  "version": "0.1.4",
+  "description": "ESLint-style CI checker for TypeScript and Zod schema drift with semantic input/output checks.",
   "author": "greyllmmoder",
   "homepage": "https://github.com/greyllmmoder/zodrift#readme",
   "bugs": {
@@ -34,15 +34,20 @@
   },
   "keywords": [
     "zodrift",
+    "zod-drift",
     "eslint-for-zod",
     "zod",
     "typescript",
+    "typescript-zod",
     "schema",
     "drift",
     "drift-detection",
     "schema-validation",
+    "contract-drift",
     "api-contracts",
     "type-safety",
+    "semantic-check",
+    "zod-input-output",
     "ci",
     "cli"
   ],
