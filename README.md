@@ -29,7 +29,9 @@ export const UserSchema = z.object({
 npx zodrift check
 ```
 
-![zodrift terminal output](https://raw.githubusercontent.com/greyllmmoder/zodrift/main/assets/hero.svg)
+![zodrift fail-then-pass terminal demo](https://raw.githubusercontent.com/greyllmmoder/zodrift/main/assets/demo.gif)
+
+Fails CI on drift (`exit 1`), passes when synced (`exit 0`).
 
 Example output:
 
@@ -46,6 +48,12 @@ What it catches:
 - required vs optional mismatch
 - basic type mismatch
 - semantic mismatch when your TS type is not assignable to `z.input<typeof Schema>` / `z.output<typeof Schema>` (optional mode)
+
+Already supported:
+- nested object checks
+- arrays and tuples
+- union checks
+- JSON output and SARIF output
 
 CI quick start:
 
@@ -78,8 +86,8 @@ npx zodrift fix --pattern "src/**/*.ts" --dry-run
 ```
 
 Roadmap:
-- nested support
-- arrays
-- unions
-- JSON output
-- GitHub Action
+- deeper semantic coverage for Zod effects/refine/transform chains
+- strict bidirectional semantic mode
+- official GitHub Action wrapper with SARIF upload
+- config file support (`.zodrift.json`)
+- JUnit/Checkstyle reporters for enterprise CI
