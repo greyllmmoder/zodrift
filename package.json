@@ -1,7 +1,16 @@
 {
   "name": "zodrift",
-  "version": "0.1.1",
-  "description": "Catch drift between your TypeScript types and Zod schemas.",
+  "version": "0.1.2",
+  "description": "ESLint-style CI drift checker for TypeScript types and Zod schemas.",
+  "author": "greyllmmoder",
+  "homepage": "https://github.com/greyllmmoder/zodrift#readme",
+  "bugs": {
+    "url": "https://github.com/greyllmmoder/zodrift/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/greyllmmoder/zodrift.git"
+  },
   "type": "module",
   "license": "MIT",
   "bin": {
@@ -24,10 +33,17 @@
     "prepublishOnly": "npm run typecheck && npm run build && npm test"
   },
   "keywords": [
+    "zodrift",
+    "eslint-for-zod",
     "zod",
     "typescript",
     "schema",
     "drift",
+    "drift-detection",
+    "schema-validation",
+    "api-contracts",
+    "type-safety",
+    "ci",
     "cli"
   ],
   "devDependencies": {
