@@ -1,6 +1,6 @@
 {
   "name": "zodrift",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "ESLint-style CI drift checker for TypeScript types and Zod schemas.",
   "author": "greyllmmoder",
   "homepage": "https://github.com/greyllmmoder/zodrift#readme",
